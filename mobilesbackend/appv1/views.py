@@ -130,6 +130,7 @@ class ModelDetailsListbypriceandidsOpt(generics.ListAPIView):
         # Get optional category_id and brand_id parameters
         category_id = self.request.query_params.get('category_id')
         brand_id = self.request.query_params.get('brand_id')
+        model_details_id = self.request.query_params.get('modelDetails_id')
 
         # Filter by category_id if provided
         if category_id is not None:
@@ -138,5 +139,7 @@ class ModelDetailsListbypriceandidsOpt(generics.ListAPIView):
         # Filter by brand_id if provided
         if brand_id is not None:
             queryset = queryset.filter(brand__brand_id=brand_id)
+        if model_details_id:
+            queryset = queryset.filter(model_id=model_details_id)
 
         return queryset

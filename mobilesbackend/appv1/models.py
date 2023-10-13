@@ -83,14 +83,20 @@ class CategoryBrandRelation(models.Model):
 class Article(models.Model):
     article_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
-    content = models.TextField()
+    content = models.TextField(null=False, blank = False)
+    content2 = models.TextField(default="")
+    content3 = models.TextField(default="")
+    content4 = models.TextField(default="")
     publication_date = models.DateField(default = timezone.now)
     products = models.ManyToManyField(ModelDetails, blank=True)
     brands = models.ManyToManyField(Brand, blank=True)  # Changed to ManyToManyField
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     views = models.PositiveIntegerField(default=0)
     likes = models.PositiveIntegerField(default=0)
-    image_url = models.URLField(max_length=200, blank=True)
+    image_url = models.URLField(max_length=200, blank=False)
+    image_url1 = models.URLField(max_length=200, blank=True)
+    image_url2 = models.URLField(max_length=200, blank=True)
+    image_url3 = models.URLField(max_length=200, blank=True)
     # tags = models.ManyToManyField(Tag, blank=True)
 class YouTubeVideo(models.Model):
     video_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
