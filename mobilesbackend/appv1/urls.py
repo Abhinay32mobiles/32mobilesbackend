@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsViewSet, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsViewSet, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -16,11 +16,12 @@ urlpatterns = [
     path('modeldetails/<uuid:pk>/', ModelDetailsDetailView.as_view(), name='modeldetails-detail'),
     path('modeldetails/by_brand/<uuid:brand_id>/', ModelDetailsByBrandView.as_view(), name='modeldetails-by-brand'),
      path('modeldetails/by_category_id/<uuid:category_id>/', ModelDetailsByCategoryIdView.as_view(), name='modeldetails-by-category-id'),
-     path('modeldetails2/', ModelDetailsViewSet.as_view(), name='modeldetails-list'),
+     path('modeldetailscustom/', ModelDetailsViewSet.as_view(), name='modeldetails-list'),
       path('youtube-videos/', YouTubeVideoListCreateView.as_view(), name='youtube-video-list'),
     path('youtube-videos/<uuid:pk>/', YouTubeVideoDetailView.as_view(), name='youtube-video-detail'),
      path('articles/', ArticleListCreateView.as_view(), name='article-list'),
     path('articles/<uuid:pk>/', ArticleDetailView.as_view(), name='article-detail'),
+    path('articlescustom/', ArticleViewSet.as_view(), name='article-list'),
     
     # Add more views and URL patterns for other models here
 ]

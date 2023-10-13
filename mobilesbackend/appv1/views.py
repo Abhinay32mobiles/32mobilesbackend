@@ -91,3 +91,22 @@ class ArticleListCreateView(generics.ListCreateAPIView):
 class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+class ArticleViewSet(views.APIView):
+    def get(self, request, format=None):
+        queryset = Article.objects.all()
+
+        category_id = request.query_params.get('category_id')
+        model_details_id = request.query_params.get('modelDetails_id')
+        brand_id = request.query_params.get('brand_id')
+
+        if category_id:
+            queryset = queryset.filter(category=category_id)
+
+        if model_details_id:
+            queryset = queryset.filter(products=model_details_id)
+
+        if brand_id:
+            queryset = queryset.filter(brands=brand_id)
+
+        serializer = ArticleSerializer(queryset, many=True)
+        return response.Response(serializer.data, status=status.HTTP_200_OK)
