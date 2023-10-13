@@ -110,3 +110,33 @@ class ArticleViewSet(views.APIView):
 
         serializer = ArticleSerializer(queryset, many=True)
         return response.Response(serializer.data, status=status.HTTP_200_OK)
+class ModelDetailsListbypriceandidsOpt(generics.ListAPIView):
+    serializer_class = ModelDetailsSerializer
+
+    def get_queryset(self):
+        # Get the price range parameters from the request
+        lower_price = self.request.query_params.get('lower_price')
+        higher_price = self.request.query_params.get('higher_price')
+
+        # Start with all ModelDetails objects
+        queryset = ModelDetails.objects.all()
+
+        # Filter by price range if provided
+        if lower_price is not None:
+            queryset = queryset.filter(price__gte=lower_price)
+        if higher_price is not None:
+            queryset = queryset.filter(price__lte=higher_price)
+
+        # Get optional category_id and brand_id parameters
+        category_id = self.request.query_params.get('category_id')
+        brand_id = self.request.query_params.get('brand_id')
+
+        # Filter by category_id if provided
+        if category_id is not None:
+            queryset = queryset.filter(category__category_id=category_id)
+
+        # Filter by brand_id if provided
+        if brand_id is not None:
+            queryset = queryset.filter(brand__brand_id=brand_id)
+
+        return queryset
