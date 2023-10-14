@@ -21,6 +21,8 @@ class Brand(models.Model):
         unique=True,
         choices=BRAND_CHOICES
     )
+    def __str__(self):
+        return self.name
 class Mobile(models.Model):
     mobile_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     model_name = models.CharField(max_length=50)
@@ -46,6 +48,8 @@ class Category(models.Model):
         unique=True,
         choices=CATEGORY_CHOICES
     )
+    def __str__(self):
+        return self.name
     
     # Conditional ForeignKeys
     
@@ -73,6 +77,8 @@ class ModelDetails(models.Model):
     dimensions = models.CharField(max_length=100, null=True, blank=True)
     color = models.CharField(max_length=20, null=True, blank=True)
     connectivity = models.TextField(null=True, blank=True)
+    def __str__(self):
+        return self.model_name
 
 
 
@@ -97,6 +103,8 @@ class Article(models.Model):
     image_url1 = models.URLField(max_length=200, blank=True)
     image_url2 = models.URLField(max_length=200, blank=True)
     image_url3 = models.URLField(max_length=200, blank=True)
+    def __str__(self):
+        return self.title
     # tags = models.ManyToManyField(Tag, blank=True)
 class YouTubeVideo(models.Model):
     video_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -118,3 +126,64 @@ class YouTubeVideo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
+class TagsModel(models.Model):
+    # Predefined tag choices
+    TAG_CHOICES = [
+        ('Latest', 'Latest'),
+        ('BestCamera', 'BestCamera'),
+        ('Performance', 'Performance'),
+        ('Gaming', 'Gaming'),
+        ('Battery', 'Battery'),
+        ('Iphone', 'Iphone'),
+        ('Samsung', 'Samsung'),
+        ('120hz', '120hz'),
+        ('90hz', '90hz'),
+        ('Nothing', 'Nothing'),
+        ('Low-price', 'Low-Price'),
+        # Add more tag choices as needed
+    ]
+
+    # Fields
+    tag = models.CharField(
+        max_length=30,
+        choices=TAG_CHOICES,
+        unique=True,
+    )
+
+    # Many-to-many relationship with ModelDetails
+    model_details = models.ManyToManyField(ModelDetails, related_name='tags')
+
+    def __str__(self):
+        return self.get_tag_display()
+
+class TagsArticle(models.Model):
+    # Predefined tag choices
+    # articletag_id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    TAG_CHOICES = [
+        ('Latest', 'Latest'),
+        ('BestDeals', 'BestDeals'),
+        ('Comparison', 'Comparison'),
+        ('Upcoming', 'Upcoming'),
+        ('HotDeals', 'HotDeals'),
+        ('News', 'News'),
+        ('Mobiles', 'Mobiles'),
+        ('Laptops', 'Laptops'),
+        ('Smartwatch', 'Smartwatch'),
+        ('Earphones', 'Earphones'),
+        ('Gadget', 'Gadget'),
+        # Add more tag choices as needed
+    ]
+
+    # Fields
+    tag = models.CharField(
+        max_length=30,
+        choices=TAG_CHOICES,
+        unique=True,
+    )
+      # make changes in this model so  that it give the  names  of the   keys when getting mapped to the articles  keys
+
+    # Many-to-many relationship with Article
+    articles = models.ManyToManyField(Article, related_name='tags')
+
+    def __str__(self):
+        return self.tag

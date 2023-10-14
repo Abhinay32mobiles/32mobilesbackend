@@ -1,6 +1,7 @@
 from rest_framework import generics , viewsets , filters, response , status, views
-from .models import TV, Article, Brand, Category, Mobile, ModelDetails, YouTubeVideo
-from .serializers import ArticleSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailsSerializer, TVSerializer, YouTubeVideoSerializer
+from django.db.models import Q
+from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideo
+from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
@@ -142,4 +143,33 @@ class ModelDetailsListbypriceandidsOpt(generics.ListAPIView):
         if model_details_id:
             queryset = queryset.filter(model_id=model_details_id)
 
+        return queryset
+class ArticleTagsListCreateView(generics.ListCreateAPIView):
+    queryset = TagsArticle.objects.all()
+    serializer_class = ArticleTagsSerializer
+
+class ModelDetailTagsListCreateView(generics.ListCreateAPIView):
+    queryset = TagsModel.objects.all()
+    serializer_class = ModelDetailTagsSerializer
+class ModelTagsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TagsModel.objects.all()
+    serializer_class = ModelDetailTagsSerializer
+
+class ArticleTagsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TagsArticle.objects.all()
+    serializer_class = ArticleTagsSerializer
+
+class ArticleSearchView(generics.ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        queryset = Article.objects.filter(Q(title__icontains=query))
+        return queryset
+class ModelDetailsSearchView(generics.ListAPIView):
+    serializer_class = ModelDetailsSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        queryset = ModelDetails.objects.filter(Q(model_name__icontains=query))
         return queryset

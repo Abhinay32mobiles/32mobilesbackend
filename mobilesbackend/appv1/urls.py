@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsViewSet, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -23,6 +23,12 @@ urlpatterns = [
     path('articles/<uuid:pk>/', ArticleDetailView.as_view(), name='article-detail'),
     path('articlescustom/', ArticleViewSet.as_view(), name='article-list'),
     path('model-details-price-optID/', ModelDetailsListbypriceandidsOpt.as_view(), name='model-details-list'),
+     path('article-tags/', ArticleTagsListCreateView.as_view(), name='article-tags'),
+    path('model-detail-tags/', ModelDetailTagsListCreateView.as_view(), name='model-detail-tags'),
+    path('modeltags/<int:pk>/', ModelTagsDetail.as_view(), name='modeltags-detail'),
+    path('articletags/<int:pk>/', ArticleTagsDetail.as_view(), name='articletags-detail'),
+    path('search/articlebytitle/', ArticleSearchView.as_view(), name='article-search'),
+    path('search/productbyname/', ModelDetailsSearchView.as_view(), name='modeldetails-search'),
     
     # Add more views and URL patterns for other models here
 ]
