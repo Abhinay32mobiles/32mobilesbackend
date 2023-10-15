@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import dj_database_url
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3fx*ub&0kx13x_4d^u534b)l*)0xu08t1j71r3hdxvkr^3x#(f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-3fx*ub&0kx13x_4d^u534b)l*)0xu08t1j71r3hdxvkr^3x#(f')
 
-ALLOWED_HOSTS = ['test4-rd8l.onrender.com']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', 'True')=="True"
+
+ALLOWED_HOSTS = ['test4-rd8l.onrender.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -75,7 +80,10 @@ WSGI_APPLICATION = 'mobilesbackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+if not DEBUG:
+    DATABASES = {
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
