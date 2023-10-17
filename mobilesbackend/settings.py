@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'appv1',
     'rest_framework',
     "whitenoise",
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -85,16 +86,16 @@ if not DEBUG:
     DATABASES = {
 	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db32mobs',  # Your PostgreSQL database name
-        'USER': 'abhinay',      # Your PostgreSQL username
-        'PASSWORD': 'root',  # Your PostgreSQL password
-        'HOST': 'localhost',   # Set the host to the PostgreSQL server location
-        'PORT': '',            # Use the default PostgreSQL port (5432)
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db32mobs',  # Your PostgreSQL database name
+#         'USER': 'abhinay',      # Your PostgreSQL username
+#         'PASSWORD': 'root',  # Your PostgreSQL password
+#         'HOST': 'localhost',   # Set the host to the PostgreSQL server location
+#         'PORT': '',            # Use the default PostgreSQL port (5432)
+#     }
+# }
 
 
 # Password validation
@@ -126,7 +127,13 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic',
+        }
+    },
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
