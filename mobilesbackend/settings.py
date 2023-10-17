@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-SECRET_KEY = 'django-insecure-3fx*ub&0kx13x_4d^u534b)l*)0xu08t1j71r3hdxvkr^3x#(f'
+SECRET_KEY = os.environ.get('SECRET_KEY','django-insecure-3fx*ub&0kx13x_4d^u534b)l*)0xu08t1j71r3hdxvkr^3x#(f')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True')=="True"
@@ -82,17 +82,20 @@ WSGI_APPLICATION = 'mobilesbackend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db32mobs',  # Your PostgreSQL database name
-        'USER': 'abhinay',      # Your PostgreSQL username
-        'PASSWORD': 'root',  # Your PostgreSQL password
-        'HOST': 'localhost',   # Set the host to the PostgreSQL server location
-        'PORT': '',            # Use the default PostgreSQL port (5432)
-    }
+if not DEBUG:
+    DATABASES = {
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'db32mobs',  # Your PostgreSQL database name
+#         'USER': 'abhinay',      # Your PostgreSQL username
+#         'PASSWORD': 'root',  # Your PostgreSQL password
+#         'HOST': 'localhost',   # Set the host to the PostgreSQL server location
+#         'PORT': '',            # Use the default PostgreSQL port (5432)
+#     }
+# }
 
 
 # Password validation
