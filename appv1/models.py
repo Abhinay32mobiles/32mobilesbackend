@@ -144,6 +144,8 @@ class YouTubeVideo(models.Model):
     title = models.CharField(max_length=100)
     SHORT = 'short'
     LONG = 'long'
+    YES = 'Yes'
+    NO = 'No'
     VIDEO_TYPE_CHOICES = [
         (SHORT, 'Short'),
         (LONG, 'Long'),
@@ -159,6 +161,8 @@ class YouTubeVideo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
+    recom = models.CharField(max_length=3, choices=[(YES, 'Yes'), (NO, 'No')], default=NO)
+    # upload_datetime = models.DateTimeField(null=True, blank=True)
 class TagsModel(models.Model):
     # Predefined tag choices
     TAG_CHOICES = [
