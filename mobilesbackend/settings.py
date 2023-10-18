@@ -87,19 +87,19 @@ WSGI_APPLICATION = 'mobilesbackend.wsgi.application'
 #     DATABASES = {
 # 	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'db32mobs',  # Your PostgreSQL database name
-#         'USER': 'abhinay',      # Your PostgreSQL username
-#         'PASSWORD': 'root',  # Your PostgreSQL password
-#         'HOST': 'localhost',   # Set the host to the PostgreSQL server location
-#         'PORT': '',            # Use the default PostgreSQL port (5432)
-#     }
-# }
 DATABASES = {
-    'default': dj_database_url.parse(os.environ['DATABASE_URL'])
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db32mobs',  # Your PostgreSQL database name
+        'USER': 'abhinay',      # Your PostgreSQL username
+        'PASSWORD': 'root',  # Your PostgreSQL password
+        'HOST': 'localhost',   # Set the host to the PostgreSQL server location
+        'PORT': '',            # Use the default PostgreSQL port (5432)
+    }
 }
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ['DATABASE_URL'])
+# }
 
 
 # Password validation
