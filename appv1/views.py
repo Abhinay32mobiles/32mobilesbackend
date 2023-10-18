@@ -1,6 +1,6 @@
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
-from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideo
+from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
@@ -78,12 +78,12 @@ class ModelDetailsViewSet(views.APIView):
         serializer = ModelDetailsSerializer(queryset, many=True)
         return response.Response(serializer.data, status=status.HTTP_200_OK)
 class YouTubeVideoListCreateView(generics.ListCreateAPIView):
-    queryset = YouTubeVideo.objects.all()
+    queryset = YouTubeVideoDetails.objects.all()
     serializer_class = YouTubeVideoSerializer
 
 # Retrieve, update, or delete a specific YouTube video
 class YouTubeVideoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = YouTubeVideo.objects.all()
+    queryset = YouTubeVideoDetails.objects.all()
     serializer_class = YouTubeVideoSerializer
 class ArticleListCreateView(generics.ListCreateAPIView):
     queryset = Article.objects.all()
