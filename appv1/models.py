@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 default_brand_uuid = uuid.uuid4()
 class Brand(models.Model):
     SAMSUNG = 'Samsung'
@@ -77,6 +78,38 @@ class ModelDetails(models.Model):
     dimensions = models.CharField(max_length=100, null=True, blank=True)
     color = models.CharField(max_length=20, null=True, blank=True)
     connectivity = models.TextField(null=True, blank=True)
+    expandable_storage = models.BooleanField(default=False)
+    sim_card_slots = models.CharField(max_length=20, null=True, blank=True)
+    network_connectivity = models.CharField(max_length=50, null=True, blank=True)
+    bluetooth_version = models.CharField(max_length=20, null=True, blank=True)
+    wi_fi = models.CharField(max_length=20, null=True, blank=True)
+    nfc = models.BooleanField(default=False)
+    biometric_security = models.CharField(max_length=50, null=True, blank=True)
+    water_resistance = models.CharField(max_length=50, null=True, blank=True)
+    dust_resistance = models.CharField(max_length=50, null=True, blank=True)
+    audio_jack = models.CharField(max_length=50, null=True, blank=True)
+    speaker_quality = models.CharField(max_length=50, null=True, blank=True)
+    gps = models.BooleanField(default=False)
+    sensors = models.CharField(max_length=100, null=True, blank=True)
+    wireless_charging = models.BooleanField(default=False)
+    os_updates = models.BooleanField(default=False)
+    battery_life = models.CharField(max_length=50, null=True, blank=True)
+    
+    color_options = ArrayField(
+        models.CharField(max_length=7),  #strings like "#RRGGBB"
+        blank=True,
+        default=list
+    )
+    buylink1 = models.URLField(max_length=200, blank=True, null=True)
+    buylink2 = models.URLField(max_length=200, blank=True, null=True)
+    buylink3 = models.URLField(max_length=200, blank=True, null=True)
+    buylink4 = models.URLField(max_length=200, blank=True, null=True)
+    price_range = models.CharField(max_length=50, null=True, blank=True)
+    warranty = models.TextField(null=True, blank=True)
+    special_features = models.TextField(null=True, blank=True)
+    gaming_performance = models.CharField(max_length=50, null=True, blank=True)
+    accessibility_features = models.TextField(null=True, blank=True)
+    sar_value = models.CharField(max_length=50, null=True, blank=True)
     def __str__(self):
         return self.model_name
 

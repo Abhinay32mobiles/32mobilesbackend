@@ -173,3 +173,22 @@ class ModelDetailsSearchView(generics.ListAPIView):
         query = self.request.query_params.get('q', '')
         queryset = ModelDetails.objects.filter(Q(model_name__icontains=query))
         return queryset
+class ModelDetailsByCategoryView(generics.ListAPIView):
+    serializer_class = ModelDetailsSerializer
+
+    def get_queryset(self):
+        category_id = self.request.query_params.get('category_id')  # Get the category_id from query parameters
+        query = self.request.query_params.get('model_name', '')  # Get the model_name from query parameters
+
+        if not category_id:
+            # Handle the case where category_id is missing
+            return ModelDetails.objects.none()
+
+        # Filter by category_id and optional model_name
+        queryset = ModelDetails.objects.filter(category_id=category_id)
+
+        if query:
+            queryset = queryset.filter(Q(model_name__icontains=query))  # Case-insensitive partial match
+
+        return queryset
+    

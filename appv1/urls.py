@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -29,6 +29,6 @@ urlpatterns = [
     path('articletags/<int:pk>/', ArticleTagsDetail.as_view(), name='articletags-detail'),
     path('search/articlebytitle/', ArticleSearchView.as_view(), name='article-search'),
     path('search/productbyname/', ModelDetailsSearchView.as_view(), name='modeldetails-search'),
-    
+    path('modeldetails/by_category/', ModelDetailsByCategoryView.as_view(), name='modeldetails-by-category'),
     # Add more views and URL patterns for other models here
 ]
