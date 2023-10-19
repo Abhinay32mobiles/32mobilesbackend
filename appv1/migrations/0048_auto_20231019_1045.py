@@ -12,32 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='modeldetails',
-            name='brand',
-        ),
-        migrations.RemoveField(
-            model_name='modeldetails',
-            name='category',
-        ),
-        migrations.AddField(
-            model_name='modeldetails',
-            name='brandname',
-            field=models.CharField(blank=True, default='just a brand', max_length=50, null=True),
-        ),
-        migrations.AddField(
-            model_name='modeldetails',
-            name='categoryname',
-            field=models.CharField(blank=True, max_length=50, null=True),
-        ),
-        migrations.AlterField(
-            model_name='brand',
-            name='name',
-            field=models.CharField(choices=[('Samsung', 'Samsung'), ('Apple', 'Apple'), ('Google', 'Google'), ('Vivo', 'Vivo'), ('Realme', 'Realme'), ('Oppo', 'Oppo'), ('Xiaomi', 'Xiaomi'), ('OnePlus', 'OnePlus'), ('Motorola', 'Motorola'), ('Other', 'Other')], max_length=50, unique=True),
-        ),
-        migrations.AlterField(
-            model_name='youtubevideodetails',
-            name='model_details',
-            field=models.ForeignKey(default=uuid.UUID('596848af-51ca-4349-a7be-4482b173cd62'), on_delete=django.db.models.deletion.CASCADE, related_name='ytvideos', to='appv1.modeldetails'),
-        ),
+        
     ]

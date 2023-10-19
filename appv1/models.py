@@ -127,23 +127,7 @@ class ModelDetails(models.Model):
 
     # ... other fields ...
 
-    @property
-    def category(self):
-        # Return the category name based on the selected category foreign key
-        if self.category_id:
-            return Category.objects.get(category_id=self.category_id).name
-        return None
-
-    @property
-    def brand(self):
-        if self.brand_id:
-            return Brand.objects.get(brand_id=self.brand_id).name
-        return None
-
-    def save(self, *args, **kwargs):
-        self.categoryname = self.category
-        self.brandname = self.brand
-        super().save(*args, **kwargs)
+    
     def __str__(self):
         return self.model_name
 
