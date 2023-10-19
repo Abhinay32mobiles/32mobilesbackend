@@ -118,11 +118,9 @@ class ModelDetails(models.Model):
     warranty = models.TextField(null=True, blank=True)
     special_features = models.TextField(null=True, blank=True)
     gaming_performance = models.CharField(max_length=50, null=True, blank=True)
-    accessibility_features = models.TextField(null=True, blank=True)
-    sar_value = models.CharField(max_length=50, null=True, blank=True)
     brandname = models.CharField(max_length=50, blank=True, null=True, default="just a brand")
-    antutu_desc= models.TextField(blank=True, null=True),
-    antutu_score =models.PositiveIntegerField(blank=True, null=True),
+    antudesc= models.TextField(blank=True, null=True),
+    antuscore =models.PositiveIntegerField(blank=True, null=True),
     # ... other fields ...
     categoryname = models.CharField(max_length=50, blank=True, null=True)
 
