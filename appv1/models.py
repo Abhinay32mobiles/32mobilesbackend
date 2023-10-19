@@ -13,6 +13,13 @@ class Brand(models.Model):
         (SAMSUNG, 'Samsung'),
         (APPLE, 'Apple'),
         (GOOGLE, 'Google'),
+        ("Vivo", 'Vivo'),
+        ("Realme", 'Realme'),
+        ("Oppo", 'Oppo'),
+        ("Xiaomi", 'Xiaomi'),
+        ("OnePlus", 'OnePlus'),
+        ('Motorola', 'Motorola'),
+        ('Other', 'Other')
         # Add other brands here
     ]
     
@@ -94,7 +101,6 @@ class ModelDetails(models.Model):
     wireless_charging = models.BooleanField(default=False)
     os_updates = models.BooleanField(default=False)
     battery_life = models.CharField(max_length=50, null=True, blank=True)
-    
     color_options = ArrayField(
         models.CharField(max_length=7),  #strings like "#RRGGBB"
         blank=True,
@@ -114,6 +120,30 @@ class ModelDetails(models.Model):
     gaming_performance = models.CharField(max_length=50, null=True, blank=True)
     accessibility_features = models.TextField(null=True, blank=True)
     sar_value = models.CharField(max_length=50, null=True, blank=True)
+    brandname = models.CharField(max_length=50, blank=True, null=True, default="just a brand")
+
+    # ... other fields ...
+    categoryname = models.CharField(max_length=50, blank=True, null=True)
+
+    # ... other fields ...
+
+    @property
+    def category(self):
+        # Return the category name based on the selected category foreign key
+        if self.category_id:
+            return Category.objects.get(category_id=self.category_id).name
+        return None
+
+    @property
+    def brand(self):
+        if self.brand_id:
+            return Brand.objects.get(brand_id=self.brand_id).name
+        return None
+
+    def save(self, *args, **kwargs):
+        self.categoryname = self.category
+        self.brandname = self.brand
+        super().save(*args, **kwargs)
     def __str__(self):
         return self.model_name
 
