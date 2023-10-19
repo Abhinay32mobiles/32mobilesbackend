@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 default_brand_uuid = uuid.uuid4()
 class Brand(models.Model):
     SAMSUNG = 'Samsung'
@@ -12,6 +13,13 @@ class Brand(models.Model):
         (SAMSUNG, 'Samsung'),
         (APPLE, 'Apple'),
         (GOOGLE, 'Google'),
+        ("Vivo", 'Vivo'),
+        ("Realme", 'Realme'),
+        ("Oppo", 'Oppo'),
+        ("Xiaomi", 'Xiaomi'),
+        ("OnePlus", 'OnePlus'),
+        ('Motorola', 'Motorola'),
+        ('Other', 'Other')
         # Add other brands here
     ]
     
@@ -68,7 +76,7 @@ class ModelDetails(models.Model):
     screen_size = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     resolution = models.CharField(max_length=50, null=True, blank=True)
     processor = models.CharField(max_length=50, null=True, blank=True)
-    RAM = models.PositiveSmallIntegerField(null=True, blank=True)
+    ram = models.PositiveSmallIntegerField(null=True, blank=True)
     storage_capacity = models.PositiveIntegerField(null=True, blank=True)
     camera_resolution = models.CharField(max_length=50, null=True, blank=True)
     battery_capacity = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -77,6 +85,49 @@ class ModelDetails(models.Model):
     dimensions = models.CharField(max_length=100, null=True, blank=True)
     color = models.CharField(max_length=20, null=True, blank=True)
     connectivity = models.TextField(null=True, blank=True)
+    expandable_storage = models.BooleanField(default=False)
+    sim_card_slots = models.CharField(max_length=20, null=True, blank=True)
+    network_connectivity = models.CharField(max_length=50, null=True, blank=True)
+    bluetooth_version = models.CharField(max_length=20, null=True, blank=True)
+    wi_fi = models.CharField(max_length=20, null=True, blank=True)
+    nfc = models.BooleanField(default=False)
+    biometric_security = models.CharField(max_length=50, null=True, blank=True)
+    water_resistance = models.CharField(max_length=50, null=True, blank=True)
+    dust_resistance = models.CharField(max_length=50, null=True, blank=True)
+    audio_jack = models.CharField(max_length=50, null=True, blank=True)
+    speaker_quality = models.CharField(max_length=50, null=True, blank=True)
+    gps = models.BooleanField(default=False)
+    sensors = models.CharField(max_length=100, null=True, blank=True)
+    wireless_charging = models.BooleanField(default=False)
+    os_updates = models.BooleanField(default=False)
+    battery_life = models.CharField(max_length=50, null=True, blank=True)
+    color_options = ArrayField(
+        models.CharField(max_length=7),  #strings like "#RRGGBB"
+        blank=True,
+        default=list
+    )
+    buylink1 = models.URLField(max_length=200, blank=True, null=True)
+    buylink2 = models.URLField(max_length=200, blank=True, null=True)
+    buylink3 = models.URLField(max_length=200, blank=True, null=True)
+    buylink4 = models.URLField(max_length=200, blank=True, null=True)
+    img1 = models.URLField(max_length=200, blank=False, null=False)
+    img2 = models.URLField(max_length=200, blank=True, null=True)
+    img3 = models.URLField(max_length=200, blank=True, null=True)
+    img4 = models.URLField(max_length=200, blank=True, null=True)
+    price_range = models.CharField(max_length=50, null=True, blank=True)
+    warranty = models.TextField(null=True, blank=True)
+    special_features = models.TextField(null=True, blank=True)
+    gaming_performance = models.CharField(max_length=50, null=True, blank=True)
+    accessibility_features = models.TextField(null=True, blank=True)
+    sar_value = models.CharField(max_length=50, null=True, blank=True)
+    brandname = models.CharField(max_length=50, blank=True, null=True, default="just a brand")
+
+    # ... other fields ...
+    categoryname = models.CharField(max_length=50, blank=True, null=True)
+
+    # ... other fields ...
+
+    
     def __str__(self):
         return self.model_name
 
@@ -106,11 +157,13 @@ class Article(models.Model):
     def __str__(self):
         return self.title
     # tags = models.ManyToManyField(Tag, blank=True)
-class YouTubeVideo(models.Model):
+class YouTubeVideoDetails(models.Model):
     video_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
     SHORT = 'short'
     LONG = 'long'
+    YES = 'Yes'
+    NO = 'No'
     VIDEO_TYPE_CHOICES = [
         (SHORT, 'Short'),
         (LONG, 'Long'),
@@ -126,6 +179,8 @@ class YouTubeVideo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
+    recom = models.CharField(max_length=3, choices=[(YES, 'Yes'), (NO, 'No')], default=NO)
+    # upload_datetime = models.DateTimeField(null=True, blank=True)
 class TagsModel(models.Model):
     # Predefined tag choices
     TAG_CHOICES = [

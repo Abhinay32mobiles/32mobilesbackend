@@ -1,6 +1,6 @@
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
-from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideo
+from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
@@ -78,12 +78,12 @@ class ModelDetailsViewSet(views.APIView):
         serializer = ModelDetailsSerializer(queryset, many=True)
         return response.Response(serializer.data, status=status.HTTP_200_OK)
 class YouTubeVideoListCreateView(generics.ListCreateAPIView):
-    queryset = YouTubeVideo.objects.all()
+    queryset = YouTubeVideoDetails.objects.all()
     serializer_class = YouTubeVideoSerializer
 
 # Retrieve, update, or delete a specific YouTube video
 class YouTubeVideoDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = YouTubeVideo.objects.all()
+    queryset = YouTubeVideoDetails.objects.all()
     serializer_class = YouTubeVideoSerializer
 class ArticleListCreateView(generics.ListCreateAPIView):
     queryset = Article.objects.all()
@@ -173,3 +173,22 @@ class ModelDetailsSearchView(generics.ListAPIView):
         query = self.request.query_params.get('q', '')
         queryset = ModelDetails.objects.filter(Q(model_name__icontains=query))
         return queryset
+class ModelDetailsByCategoryView(generics.ListAPIView):
+    serializer_class = ModelDetailsSerializer
+
+    def get_queryset(self):
+        category_id = self.request.query_params.get('category_id')  # Get the category_id from query parameters
+        query = self.request.query_params.get('model_name', '')  # Get the model_name from query parameters
+
+        if not category_id:
+            # Handle the case where category_id is missing
+            return ModelDetails.objects.none()
+
+        # Filter by category_id and optional model_name
+        queryset = ModelDetails.objects.filter(category_id=category_id)
+
+        if query:
+            queryset = queryset.filter(Q(model_name__icontains=query))  # Case-insensitive partial match
+
+        return queryset
+    
