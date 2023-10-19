@@ -114,15 +114,12 @@ class ModelDetails(models.Model):
     img2 = models.URLField(max_length=200, blank=True, null=True)
     img3 = models.URLField(max_length=200, blank=True, null=True)
     img4 = models.URLField(max_length=200, blank=True, null=True)
+    antu_desc= models.TextField(null=True, blank=True),
+    score_antutu =models.PositiveIntegerField(blank=True, null=True),
     price_range = models.CharField(max_length=50, null=True, blank=True)
     warranty = models.TextField(null=True, blank=True)
-    special_features = models.TextField(null=True, blank=True)
-    gaming_performance = models.CharField(max_length=50, null=True, blank=True)
-    accessibility_features = models.TextField(null=True, blank=True)
-    sar_value = models.CharField(max_length=50, null=True, blank=True)
     brandname = models.CharField(max_length=50, blank=True, null=True, default="just a brand")
-    antutu_desc= models.TextField(blank=True, null=True),
-    antutu_score =models.PositiveIntegerField(blank=True, null=True),
+    
 
     # ... other fields ...
     categoryname = models.CharField(max_length=50, blank=True, null=True)
