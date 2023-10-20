@@ -39,5 +39,5 @@ urlpatterns = [
     # path('statics/delete/<int:pk>/', DeleteStaticsView.as_view(), name='delete-statics'),
     #static paths
     path('articles-by-tag/<int:tag_id>/', ArticlesByTagView.as_view(), name='articles-by-tag'),
-    path('models-by-tag-name/<str:tag_name>/', ModelsByTagView.as_view(), name='models-by-tag-name'),
+    path('models-by-tag/<int:tag_id>/', ModelsByTagView.as_view(), name='models-by-tag'),
 ]  
