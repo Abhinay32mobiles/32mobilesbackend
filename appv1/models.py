@@ -124,6 +124,10 @@ class ModelDetails(models.Model):
     # ... other fields ...
     categoryname = models.CharField(max_length=50, blank=True, null=True)
     # ... other fields ...
+    def save(self, *args, **kwargs):
+        self.categoryname = self.categoryname.lower() if self.categoryname else self.categoryname
+        self.brandname = self.brandname.lower() if self.brandname else self.brandname
+        super(ModelDetails, self).save(*args, **kwargs)
 
     
     def __str__(self):
