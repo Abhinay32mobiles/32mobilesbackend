@@ -123,7 +123,6 @@ class ModelDetails(models.Model):
     antuscore =models.PositiveIntegerField(blank=True, null=True),
     # ... other fields ...
     categoryname = models.CharField(max_length=50, blank=True, null=True)
-
     # ... other fields ...
 
     
@@ -241,3 +240,6 @@ class TagsArticle(models.Model):
 
     def __str__(self):
         return self.tag
+
+
+
