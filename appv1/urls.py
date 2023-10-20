@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, TVDetailView, TVListCreateView, YouTubeVideoDetailView, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -31,4 +31,11 @@ urlpatterns = [
     path('search/productbyname/', ModelDetailsSearchView.as_view(), name='modeldetails-search'),
     path('modeldetails/by_category/', ModelDetailsByCategoryView.as_view(), name='modeldetails-by-category'),
     # Add more views and URL patterns for other models here
-]
+    #static paths
+     path('api/statics/create/', CreateStaticsView.as_view(), name='create-statics'),
+    path('api/statics/list/', ListStaticsView.as_view(), name='list-statics'),
+    path('api/statics/update/<int:pk>/', UpdateStaticsView.as_view(), name='update-statics'),
+    path('api/statics/retrieve/<int:pk>/', RetrieveStaticsView.as_view(), name='retrieve-statics'),
+    path('api/statics/delete/<int:pk>/', DeleteStaticsView.as_view(), name='delete-statics'),
+    #static paths
+]  

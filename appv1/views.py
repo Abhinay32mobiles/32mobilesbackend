@@ -1,7 +1,7 @@
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
-from .models import TV, Article, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
-from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, TVSerializer, YouTubeVideoSerializer
+from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
+from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
@@ -191,4 +191,20 @@ class ModelDetailsByCategoryView(generics.ListAPIView):
             queryset = queryset.filter(Q(model_name__icontains=query))  # Case-insensitive partial match
 
         return queryset
+class CreateStaticsView(generics.CreateAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+class ListStaticsView(generics.ListAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+class UpdateStaticsView(generics.UpdateAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+class RetrieveStaticsView(generics.RetrieveAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+class DeleteStaticsView(generics.DestroyAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+
     
