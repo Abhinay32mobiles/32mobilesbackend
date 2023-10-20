@@ -32,10 +32,10 @@ urlpatterns = [
     path('modeldetails/by_category/', ModelDetailsByCategoryView.as_view(), name='modeldetails-by-category'),
     # Add more views and URL patterns for other models here
     #static paths
-     path('api/statics/create/', CreateStaticsView.as_view(), name='create-statics'),
-    path('api/statics/list/', ListStaticsView.as_view(), name='list-statics'),
-    path('api/statics/update/<int:pk>/', UpdateStaticsView.as_view(), name='update-statics'),
-    path('api/statics/retrieve/<int:pk>/', RetrieveStaticsView.as_view(), name='retrieve-statics'),
-    path('api/statics/delete/<int:pk>/', DeleteStaticsView.as_view(), name='delete-statics'),
+    #  path('statics/create/', CreateStaticsView.as_view(), name='create-statics'),
+    path('statics/list/', ListStaticsView.as_view(), name='list-statics'),
+    path('statics/update/<int:pk>/', UpdateStaticsView.as_view(), name='update-statics'),
+    path('statics/retrieve/<int:pk>/', RetrieveStaticsView.as_view(), name='retrieve-statics'),
+    # path('statics/delete/<int:pk>/', DeleteStaticsView.as_view(), name='delete-statics'),
     #static paths
 ]  
