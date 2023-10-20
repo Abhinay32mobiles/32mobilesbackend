@@ -187,7 +187,7 @@ class Article(models.Model):
     image_url1 = models.URLField(max_length=200, blank=True)
     image_url2 = models.URLField(max_length=200, blank=True)
     image_url3 = models.URLField(max_length=200, blank=True)
-    tags = models.ManyToManyField(TagsArticle, related_name='tags')
+    tags = models.ManyToManyField(TagsArticle, related_name='articles')
     def __str__(self):
         return self.title
     # tags = models.ManyToManyField(Tag, blank=True)
