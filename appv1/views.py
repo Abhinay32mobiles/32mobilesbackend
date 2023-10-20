@@ -212,4 +212,10 @@ class ArticlesByTagView(generics.ListAPIView):
     def get_queryset(self):
         tag_id = self.kwargs['tag_id']  # Get the tag ID from the URL parameter
         return Article.objects.filter(tags__id=tag_id)
+class ModelsByTagView(generics.ListAPIView):
+    serializer_class = ModelDetailsSerializer
+
+    def get_queryset(self):
+        tag_name = self.kwargs['tag_name']  # Get the tag name from the URL parameter
+        return ModelDetails.objects.filter(tags__tag=tag_name)
     
