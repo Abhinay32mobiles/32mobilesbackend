@@ -134,6 +134,37 @@ class ModelDetails(models.Model):
 class CategoryBrandRelation(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class TagsArticle(models.Model):
+    # Predefined tag choices
+    # articletag_id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    TAG_CHOICES = [
+        ('Latest', 'Latest'),
+        ('BestDeals', 'BestDeals'),
+        ('Comparison', 'Comparison'),
+        ('Upcoming', 'Upcoming'),
+        ('HotDeals', 'HotDeals'),
+        ('News', 'News'),
+        ('Mobiles', 'Mobiles'),
+        ('Laptops', 'Laptops'),
+        ('Smartwatch', 'Smartwatch'),
+        ('Earphones', 'Earphones'),
+        ('Gadget', 'Gadget'),
+        # Add more tag choices as needed
+    ]
+
+    # Fields
+    tag = models.CharField(
+        max_length=30,
+        choices=TAG_CHOICES,
+        unique=True,
+    )
+      # make changes in this model so  that it give the  names  of the   keys when getting mapped to the articles  keys
+
+    # Many-to-many relationship with Article
+    
+
+    def __str__(self):
+        return self.tag
 
 class Article(models.Model):
     article_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -152,6 +183,7 @@ class Article(models.Model):
     image_url1 = models.URLField(max_length=200, blank=True)
     image_url2 = models.URLField(max_length=200, blank=True)
     image_url3 = models.URLField(max_length=200, blank=True)
+    articles = models.ManyToManyField(TagsArticle, related_name='tags')
     def __str__(self):
         return self.title
     # tags = models.ManyToManyField(Tag, blank=True)
@@ -209,37 +241,7 @@ class TagsModel(models.Model):
     def __str__(self):
         return self.get_tag_display()
 
-class TagsArticle(models.Model):
-    # Predefined tag choices
-    # articletag_id= models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    TAG_CHOICES = [
-        ('Latest', 'Latest'),
-        ('BestDeals', 'BestDeals'),
-        ('Comparison', 'Comparison'),
-        ('Upcoming', 'Upcoming'),
-        ('HotDeals', 'HotDeals'),
-        ('News', 'News'),
-        ('Mobiles', 'Mobiles'),
-        ('Laptops', 'Laptops'),
-        ('Smartwatch', 'Smartwatch'),
-        ('Earphones', 'Earphones'),
-        ('Gadget', 'Gadget'),
-        # Add more tag choices as needed
-    ]
 
-    # Fields
-    tag = models.CharField(
-        max_length=30,
-        choices=TAG_CHOICES,
-        unique=True,
-    )
-      # make changes in this model so  that it give the  names  of the   keys when getting mapped to the articles  keys
-
-    # Many-to-many relationship with Article
-    articles = models.ManyToManyField(Article, related_name='tags')
-
-    def __str__(self):
-        return self.tag
 class Statics(models.Model):
     homepage_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
     homepage_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)

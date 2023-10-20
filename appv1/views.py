@@ -206,5 +206,10 @@ class RetrieveStaticsView(generics.RetrieveAPIView):
 class DeleteStaticsView(generics.DestroyAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer
+class ArticlesByTagView(generics.ListAPIView):
+    serializer_class = ArticleSerializer
 
+    def get_queryset(self):
+        tag_id = self.kwargs['tag_id']  # Get the tag ID from the URL parameter
+        return Article.objects.filter(tags__id=tag_id)
     
