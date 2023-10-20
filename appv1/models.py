@@ -212,10 +212,10 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     views = models.PositiveIntegerField(default=0)
     likes = models.PositiveIntegerField(default=0)
-    image_url = models.URLField(max_length=200, blank=False)
-    image_url1 = models.URLField(max_length=200, blank=True)
-    image_url2 = models.URLField(max_length=200, blank=True)
-    image_url3 = models.URLField(max_length=200, blank=True)
+    image_url = models.URLField(max_length=500, blank=False)
+    image_url1 = models.URLField(max_length=500, blank=True)
+    image_url2 = models.URLField(max_length=500, blank=True)
+    image_url3 = models.URLField(max_length=500, blank=True)
     tags = models.ManyToManyField(TagsArticle, related_name='articles')
     def __str__(self):
         return self.title
