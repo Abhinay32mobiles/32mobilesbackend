@@ -62,7 +62,35 @@ class Category(models.Model):
     # Conditional ForeignKeys
     
     # modeldetails = models.ForeignKey(ModelDetails, on_delete=models.SET_NULL, null=True, blank=True)
+class TagsModel(models.Model):
+    # Predefined tag choices
+    TAG_CHOICES = [
+        ('Latest', 'Latest'),
+        ('BestCamera', 'BestCamera'),
+        ('Performance', 'Performance'),
+        ('Gaming', 'Gaming'),
+        ('Battery', 'Battery'),
+        ('Iphone', 'Iphone'),
+        ('Samsung', 'Samsung'),
+        ('120hz', '120hz'),
+        ('90hz', '90hz'),
+        ('Nothing', 'Nothing'),
+        ('Low-price', 'Low-Price'),
+        # Add more tag choices as needed
+    ]
 
+    # Fields
+    tag = models.CharField(
+        max_length=30,
+        choices=TAG_CHOICES,
+        unique=True,
+    )
+
+    # Many-to-many relationship with ModelDetails
+    
+
+    def __str__(self):
+        return self.get_tag_display()
 
 class ModelDetails(models.Model):
     model_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -124,6 +152,7 @@ class ModelDetails(models.Model):
     # ... other fields ...
     categoryname = models.CharField(max_length=50, blank=True, null=True)
     # ... other fields ...
+    tags = models.ManyToManyField(TagsModel, related_name='modeldetails')
     def save(self, *args, **kwargs):
         self.categoryname = self.categoryname.lower() if self.categoryname else self.categoryname
         self.brandname = self.brandname.lower() if self.brandname else self.brandname
@@ -215,35 +244,6 @@ class YouTubeVideoDetails(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     recom = models.CharField(max_length=3, choices=[(YES, 'Yes'), (NO, 'No')], default=NO)
     # upload_datetime = models.DateTimeField(null=True, blank=True)
-class TagsModel(models.Model):
-    # Predefined tag choices
-    TAG_CHOICES = [
-        ('Latest', 'Latest'),
-        ('BestCamera', 'BestCamera'),
-        ('Performance', 'Performance'),
-        ('Gaming', 'Gaming'),
-        ('Battery', 'Battery'),
-        ('Iphone', 'Iphone'),
-        ('Samsung', 'Samsung'),
-        ('120hz', '120hz'),
-        ('90hz', '90hz'),
-        ('Nothing', 'Nothing'),
-        ('Low-price', 'Low-Price'),
-        # Add more tag choices as needed
-    ]
-
-    # Fields
-    tag = models.CharField(
-        max_length=30,
-        choices=TAG_CHOICES,
-        unique=True,
-    )
-
-    # Many-to-many relationship with ModelDetails
-    model_details = models.ManyToManyField(ModelDetails, related_name='tags')
-
-    def __str__(self):
-        return self.get_tag_display()
 
 
 class Statics(models.Model):
