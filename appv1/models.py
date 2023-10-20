@@ -241,3 +241,48 @@ class TagsArticle(models.Model):
 
     def __str__(self):
         return self.tag
+
+class Statics(models.Model):
+    homepage_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    homepage_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    homepage_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    homepage_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    homepagevert_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagevert_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagevert_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagevert_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagehori_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagehori_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagehori_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepagehori_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    homepage_brand_banner_cdn = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    #articles
+    articles_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    articles_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    articles_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    articles_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    artilcevert_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcevert_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcevert_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcevert_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcehori_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcehori_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcehori_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    artilcehori_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    # artilce_brand_banner_cdn = ArrayField(models.CharField(max_length=200), blank=True, null=True, size=15)
+    #products
+    products_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    products_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    products_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    products_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=15)
+    productvert_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    productvert_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    productvert_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    productvert_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    producthori_cdn_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    producthori_redirect_links = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    producthori_banner_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    producthori_button_text = ArrayField(models.CharField(max_length=400), blank=True, null=True, size=5)
+    # product_brand_banner_cdn = ArrayField(models.CharField(max_length=200), blank=True, null=True, size=15)
+    #price bands array
+    producthori_button_text = ArrayField(models.PositiveIntegerField(), blank=True, null=True, size=5)
