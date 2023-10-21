@@ -167,7 +167,11 @@ class TagsArticle(models.Model):
         return self.tag
 class Article(models.Model):
     article_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=150)
+    sub_title1 = models.CharField(max_length=150,blank=True)
+    sub_title2 = models.CharField(max_length=150,blank=True)
+    sub_title3 = models.CharField(max_length=150,blank=True)
+    sub_title4 = models.CharField(max_length=150,blank=True)
     content = models.TextField(null=False, blank = False)
     content2 = models.TextField(default="")
     content3 = models.TextField(default="")
