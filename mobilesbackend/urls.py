@@ -5,6 +5,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from appv1.views import MobileDetailView, MobileListCreateView
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Your API",

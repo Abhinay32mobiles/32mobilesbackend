@@ -1,5 +1,13 @@
+from django.shortcuts import render
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.http import HttpResponse
+
+# from mobilesbackend.authentication import CustomBasicAuthentication
 from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
@@ -25,17 +33,24 @@ class TVDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TV.objects.all()
     serializer_class = TVSerializer
 class ArticleListCreateView(generics.ListCreateAPIView):
+    # authentication_classes = [CustomBasicAuthentication]
+    # permission_classes=[IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
 class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+
 class ModelDetailsListCreateView(generics.ListCreateAPIView):
+    
+    # authentication_classes = [CustomBasicAuthentication] 
     queryset = ModelDetails.objects.all()
     serializer_class = ModelDetailsSerializer
 
+
 class ModelDetailsDetailView(generics.RetrieveUpdateDestroyAPIView):
+    
     queryset = ModelDetails.objects.all()
     serializer_class = ModelDetailsSerializer
 class CategoryListCreateView(generics.ListCreateAPIView):
