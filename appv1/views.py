@@ -1,5 +1,7 @@
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
+
+from appv1.customauth import StaticPasswordAuthentication
 from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
@@ -32,6 +34,7 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 class ModelDetailsListCreateView(generics.ListCreateAPIView):
+    authentication_classes = [StaticPasswordAuthentication]
     queryset = ModelDetails.objects.all()
     serializer_class = ModelDetailsSerializer
 
