@@ -13,10 +13,18 @@ import dj_database_url
 import os
 from pathlib import Path
 from decouple import config
+from celery import Celery
+from django.conf import settings
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# celery config
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'projectname.settings')
+app = Celery('mobilesbackend')
+app.config_from_object('django.conf:settings', namespace='CELERY')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+# celery config
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -36,6 +44,9 @@ ALLOWED_HOSTS = ['*']
 
 
 
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -47,7 +58,16 @@ INSTALLED_APPS = [
     'rest_framework',
     "whitenoise",
     'drf_yasg',
+    'email_reply',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'appv1.customauth.StaticPasswordAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # Other REST framework settings...
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

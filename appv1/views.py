@@ -7,6 +7,8 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpResponse
 
+from appv1.customauth import StaticPasswordAuthentication
+
 # from mobilesbackend.authentication import CustomBasicAuthentication
 from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
@@ -33,7 +35,7 @@ class TVDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TV.objects.all()
     serializer_class = TVSerializer
 class ArticleListCreateView(generics.ListCreateAPIView):
-    # authentication_classes = [CustomBasicAuthentication]
+    authentication_classes = [StaticPasswordAuthentication]
     # permission_classes=[IsAuthenticated]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
@@ -43,8 +45,8 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ArticleSerializer
 
 class ModelDetailsListCreateView(generics.ListCreateAPIView):
-    
-    # authentication_classes = [CustomBasicAuthentication] 
+    authentication_classes = [StaticPasswordAuthentication]  # Use the custom authentication class
+    # permission_classes = [IsAuthenticated]
     queryset = ModelDetails.objects.all()
     serializer_class = ModelDetailsSerializer
 
