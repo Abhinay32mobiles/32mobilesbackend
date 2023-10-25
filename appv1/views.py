@@ -201,6 +201,65 @@ class ListStaticsView(generics.ListAPIView):
 class UpdateStaticsView(generics.UpdateAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer
+class PartialUpdateStaticsView(generics.PartialUpdateAPIView):
+    queryset = Statics.objects.all()
+    serializer_class = StaticsSerializer
+
+    def perform_update(self, serializer):
+        # Retrieve the existing object
+        instance = self.get_object()
+
+        # Define the fields to update (replace with your actual field names)
+        fields_to_update = [
+            'homepage_cdn_links',
+            'homepage_redirect_links',
+            'homepage_banner_text',
+            'homepage_button_text',
+            'homepagevert_cdn_links',
+            'homepagevert_redirect_links',
+            'homepagevert_banner_text',
+            'homepagevert_button_text',
+            'homepagehori_cdn_links',
+            'homepagehori_redirect_links',
+            'homepagehori_banner_text',
+            'homepagehori_button_text',
+            'homepage_brand_banner_cdn',
+            'articles_cdn_links',
+            'articles_redirect_links',
+            'articles_banner_text',
+            'articles_button_text',
+            'artilcevert_cdn_links',
+            'artilcevert_redirect_links',
+            'artilcevert_banner_text',
+            'artilcevert_button_text',
+            'artilcehori_cdn_links',
+            'artilcehori_redirect_links',
+            'artilcehori_banner_text',
+            'artilcehori_button_text',
+            'products_cdn_links',
+            'products_redirect_links',
+            'products_banner_text',
+            'products_button_text',
+            'productvert_cdn_links',
+            'productvert_redirect_links',
+            'productvert_banner_text',
+            'productvert_button_text',
+            'producthori_cdn_links',
+            'producthori_redirect_links',
+            'producthori_banner_text',
+            'producthori_button_text',
+            'product_priceband_array',
+        ]
+
+        # Merge the existing arrays with the new data for each field
+        for field_name in fields_to_update:
+            existing_data = getattr(instance, field_name)
+            new_data = serializer.validated_data.get(field_name, [])
+            updated_data = existing_data + new_data
+            setattr(instance, field_name, updated_data)
+
+        # Save the updated object
+        instance.save()
 class RetrieveStaticsView(generics.RetrieveAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer

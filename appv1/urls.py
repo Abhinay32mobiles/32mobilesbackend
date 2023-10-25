@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListByModelid, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, PartialUpdateStaticsView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListByModelid, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -38,7 +38,8 @@ urlpatterns = [
     path('statics/retrieve/<int:pk>/', RetrieveStaticsView.as_view(), name='retrieve-statics'),
     # path('statics/delete/<int:pk>/', DeleteStaticsView.as_view(), name='delete-statics'),
     #static paths
+     path('statics/partial-update/<int:pk>/', PartialUpdateStaticsView.as_view(), name='partial-update-statics'),
     path('articles-by-tag/<int:tag_id>/', ArticlesByTagView.as_view(), name='articles-by-tag'),
     path('models-by-tag/<int:tag_id>/', ModelsByTagView.as_view(), name='models-by-tag'),
-    path('api/youtubevideos/<uuid:model_id>/', YouTubeVideoListByModelid.as_view(), name='youtube-video-list'),
+    path('youtubevideos/<uuid:model_id>/', YouTubeVideoListByModelid.as_view(), name='youtube-video-list'),
 ]  
