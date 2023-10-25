@@ -29,6 +29,7 @@ class Brand(models.Model):
         unique=True,
         choices=BRAND_CHOICES
     )
+    brand_cdn_link = models.URLField(max_length=500, blank=True, null=True)
     def __str__(self):
         return self.name
 class Mobile(models.Model):
