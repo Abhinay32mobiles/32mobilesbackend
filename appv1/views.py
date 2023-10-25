@@ -1,7 +1,6 @@
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
 
-from appv1.customauth import StaticPasswordAuthentication
 from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
 from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
@@ -34,7 +33,6 @@ class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 class ModelDetailsListCreateView(generics.ListCreateAPIView):
-    authentication_classes = [StaticPasswordAuthentication]
     queryset = ModelDetails.objects.all()
     serializer_class = ModelDetailsSerializer
 
@@ -215,6 +213,12 @@ class ArticlesByTagView(generics.ListAPIView):
     def get_queryset(self):
         tag_id = self.kwargs['tag_id']  # Get the tag ID from the URL parameter
         return Article.objects.filter(tags__id=tag_id)
+class YouTubeVideoListByModelid(generics.ListAPIView):
+    serializer_class = YouTubeVideoSerializer
+
+    def get_queryset(self):
+        model_id = self.kwargs['model_id']
+        return YouTubeVideoDetails.objects.filter(model_details__model_id=model_id)
 class ModelsByTagView(generics.ListAPIView):
     serializer_class = ModelDetailsSerializer
 

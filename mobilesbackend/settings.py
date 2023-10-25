@@ -48,14 +48,14 @@ INSTALLED_APPS = [
     "whitenoise",
     'drf_yasg',
 ]
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'appv1.customauth.StaticPasswordAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',
-    ],
-    # Other REST framework settings...
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'appv1.customauth.StaticPasswordAuthentication',
+#         # 'rest_framework.authentication.SessionAuthentication',
+#         # 'rest_framework.authentication.TokenAuthentication',
+#     ],
+#     # Other REST framework settings...
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

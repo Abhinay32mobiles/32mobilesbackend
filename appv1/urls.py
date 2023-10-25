@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListByModelid, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -40,4 +40,5 @@ urlpatterns = [
     #static paths
     path('articles-by-tag/<int:tag_id>/', ArticlesByTagView.as_view(), name='articles-by-tag'),
     path('models-by-tag/<int:tag_id>/', ModelsByTagView.as_view(), name='models-by-tag'),
+    path('api/youtubevideos/<uuid:model_id>/', YouTubeVideoListByModelid.as_view(), name='youtube-video-list'),
 ]  
