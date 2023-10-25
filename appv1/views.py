@@ -1,3 +1,4 @@
+from requests import Response
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
 
@@ -201,14 +202,15 @@ class ListStaticsView(generics.ListAPIView):
 class UpdateStaticsView(generics.UpdateAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer
-class PartialUpdateStaticsView(generics.PartialUpdateAPIView):
+class PartialUpdateStaticsView(generics.UpdateAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer
 
-    def perform_update(self, serializer):
-        # Retrieve the existing object
+    def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
-
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        
         # Define the fields to update (replace with your actual field names)
         fields_to_update = [
             'homepage_cdn_links',
@@ -250,16 +252,17 @@ class PartialUpdateStaticsView(generics.PartialUpdateAPIView):
             'producthori_button_text',
             'product_priceband_array',
         ]
-
+        
         # Merge the existing arrays with the new data for each field
         for field_name in fields_to_update:
             existing_data = getattr(instance, field_name)
             new_data = serializer.validated_data.get(field_name, [])
             updated_data = existing_data + new_data
             setattr(instance, field_name, updated_data)
-
-        # Save the updated object
+        
         instance.save()
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
 class RetrieveStaticsView(generics.RetrieveAPIView):
     queryset = Statics.objects.all()
     serializer_class = StaticsSerializer
