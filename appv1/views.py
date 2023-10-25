@@ -1,12 +1,13 @@
 from django.shortcuts import render
+from requests import Response
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpResponse
-
+from django.http import HttpResponse, JsonResponse
+from rest_framework.views import APIView
 from appv1.customauth import StaticPasswordAuthentication
 
 # from mobilesbackend.authentication import CustomBasicAuthentication
@@ -237,4 +238,12 @@ class ArticlesByTagView(generics.ListAPIView):
         return Article.objects.filter(tags__id=tag_id)
 
 ## static apis
-    
+class ModelIdKiYouTubeVideoList(generics.ListAPIView):
+    serializer_class = YouTubeVideoSerializer
+
+    def get_queryset(self):
+        model_id = self.kwargs['model_id']
+        return YouTubeVideoDetails.objects.filter(model_details__model_id=model_id)
+
+
+
