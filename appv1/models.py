@@ -97,8 +97,10 @@ class ModelDetails(models.Model):
     model_name = models.CharField(max_length=50)
     
     # Define a one-to-many relationship from ModelDetails to Brand
+    meta_desc = models.CharField(max_length=500,blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=uuid.uuid4())
     price = models.DecimalField(max_digits=10, decimal_places=2, default=10000.00)
+    currency = models.CharField(max_length=30,blank=True)
     # Define a one-to-many relationship from ModelDetails to Category
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=uuid.uuid4())
     screen_size = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
@@ -106,9 +108,11 @@ class ModelDetails(models.Model):
     processor = models.CharField(max_length=50, null=True, blank=True)
     ram = models.PositiveSmallIntegerField(null=True, blank=True)
     storage_capacity = models.PositiveIntegerField(null=True, blank=True)
-    camera_resolution = models.CharField(max_length=50, null=True, blank=True)
+    camera_resolution = models.CharField(max_length=200, null=True, blank=True)
+    front_camera_resolution = models.CharField(max_length=100, null=True, blank=True)
+    back_camera_resolution = models.CharField(max_length=100, null=True, blank=True)
     battery_capacity = models.PositiveSmallIntegerField(null=True, blank=True)
-    operating_system = models.CharField(max_length=50, null=True, blank=True)
+    operating_system = models.CharField(max_length=200, null=True, blank=True)
     weight = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     dimensions = models.CharField(max_length=100, null=True, blank=True)
     color = models.CharField(max_length=100, null=True, blank=True)
@@ -201,11 +205,13 @@ class TagsArticle(models.Model):
 
 class Article(models.Model):
     article_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=150)
-    sub_title1 = models.CharField(max_length=150,blank=True)
-    sub_title2 = models.CharField(max_length=150,blank=True)
-    sub_title3 = models.CharField(max_length=150,blank=True)
-    sub_title4 = models.CharField(max_length=150,blank=True)
+    title = models.CharField(max_length=500)
+    sub_title1 = models.CharField(max_length=500,blank=True)
+    sub_title2 = models.CharField(max_length=500,blank=True)
+    sub_title3 = models.CharField(max_length=500,blank=True)
+    sub_title4 = models.CharField(max_length=500,blank=True)
+    meta_desc = models.CharField(max_length=500,blank=True)
+    author_name = models.CharField(max_length=500,blank=True)
     content = models.TextField(null=False, blank = False)
     content2 = models.TextField(default="")
     content3 = models.TextField(default="")
@@ -227,6 +233,7 @@ class Article(models.Model):
 class YouTubeVideoDetails(models.Model):
     video_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=100)
+    meta_desc = models.CharField(max_length=500,blank=True)
     SHORT = 'short'
     LONG = 'long'
     YES = 'Yes'
@@ -239,6 +246,7 @@ class YouTubeVideoDetails(models.Model):
     # Type field with choices
     type = models.CharField(max_length=10, choices=VIDEO_TYPE_CHOICES, default=SHORT)
     video_url = models.URLField(blank=True, null=True)
+    thumbnail_url = models.URLField(blank=True, null=True)
     # Define a one-to-one relationship from YouTubeVideo to ModelDetails
     model_details = models.ForeignKey(ModelDetails, on_delete=models.CASCADE,default = uuid.uuid4(),related_name='ytvideos')
     
@@ -247,7 +255,8 @@ class YouTubeVideoDetails(models.Model):
     article = models.ForeignKey(Article, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, blank=True,related_name="ytvideo")
     recom = models.CharField(max_length=3, choices=[(YES, 'Yes'), (NO, 'No')], default=NO)
-    # upload_datetime = models.DateTimeField(null=True, blank=True)
+    duration = models.CharField(max_length=10,default="10min")
+    upload_datetime = models.DateTimeField(null=True, blank=True,default=timezone.now)
 
 
 class Statics(models.Model):
