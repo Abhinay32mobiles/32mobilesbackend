@@ -314,5 +314,10 @@ class Contactdetails(models.Model):
 
     def __str__(self):
         return self.name
+class priceStatics(models.Model):
+    price = models.PositiveIntegerField()
+    color_code = models.CharField(max_length=9)
+
+
 
 

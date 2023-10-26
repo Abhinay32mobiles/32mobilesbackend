@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, PartialUpdateStaticsView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListByModelid, YouTubeVideoListCreateView
+from .views import ArticleDetailView, ArticleListCreateView, ArticleSearchView, ArticleTagsDetail, ArticleTagsListCreateView, ArticleViewSet, ArticlesByTagView, BrandListCreateView, BrandDetailView, CategoryDetailView, CategoryListCreateView, ContactDetailPrimaryKeyOperationView, ContactMessageListCreateView, CreateStaticsView, DeleteStaticsView, ListStaticsView, MobileDetailView, MobileListCreateView, ModelDetailTagsListCreateView, ModelDetailsByBrandView, ModelDetailsByCategoryIdView, ModelDetailsByCategoryView, ModelDetailsDetailView, ModelDetailsListCreateView, ModelDetailsListbypriceandidsOpt, ModelDetailsSearchView, ModelDetailsViewSet, ModelTagsDetail, ModelsByTagView, PartialUpdateStaticsView, PriceStaticsListCreateView, PriceStaticsRetrieveUpdateDestroyView, RetrieveStaticsView, TVDetailView, TVListCreateView, UpdateStaticsView, YouTubeVideoDetailView, YouTubeVideoListByModelid, YouTubeVideoListCreateView
 
 app_name = 'appv1'
 
@@ -42,4 +42,8 @@ urlpatterns = [
     path('articles-by-tag/<int:tag_id>/', ArticlesByTagView.as_view(), name='articles-by-tag'),
     path('models-by-tag/<int:tag_id>/', ModelsByTagView.as_view(), name='models-by-tag'),
     path('youtubevideos/<uuid:model_id>/', YouTubeVideoListByModelid.as_view(), name='youtube-video-list'),
+     path('contact-messages/', ContactMessageListCreateView.as_view(), name='contact-message-list-create'),
+    path('contact-messages/<int:pk>/', ContactDetailPrimaryKeyOperationView.as_view(), name='contact-message-detail'),
+    path('price-statics/', PriceStaticsListCreateView.as_view(), name='price-statics-list-create'),
+    path('price-statics/<uuid:pk>/', PriceStaticsRetrieveUpdateDestroyView.as_view(), name='price-statics-retrieve-update-destroy'),
 ]  

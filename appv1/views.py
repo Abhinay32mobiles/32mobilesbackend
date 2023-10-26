@@ -2,8 +2,8 @@ from requests import Response
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
 
-from .models import TV, Article, Contactdetails, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
-from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, ContactMessageSerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
+from .models import TV, Article, Contactdetails, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails, priceStatics
+from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, ContactMessageSerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, PriceStaticsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
@@ -294,4 +294,11 @@ class ContactMessageListCreateView(generics.ListCreateAPIView):
 class ContactDetailPrimaryKeyOperationView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Contactdetails.objects.all()
     serializer_class = ContactMessageSerializer
+class PriceStaticsListCreateView(generics.ListCreateAPIView):
+    queryset = priceStatics.objects.all()
+    serializer_class = PriceStaticsSerializer
+
+class PriceStaticsRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = priceStatics.objects.all()
+    serializer_class = PriceStaticsSerializer
     
