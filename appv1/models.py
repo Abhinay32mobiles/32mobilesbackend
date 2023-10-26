@@ -305,5 +305,14 @@ class Statics(models.Model):
     #price bands array
     product_priceband_array = ArrayField(models.PositiveIntegerField(), blank=True, null=True, size=15)
 
+class Contactdetails(models.Model):
+    person_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 

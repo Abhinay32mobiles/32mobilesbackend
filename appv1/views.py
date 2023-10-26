@@ -2,8 +2,8 @@ from requests import Response
 from rest_framework import generics , viewsets , filters, response , status, views
 from django.db.models import Q
 
-from .models import TV, Article, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
-from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
+from .models import TV, Article, Contactdetails, Statics, TagsArticle, Brand, Category, Mobile,TagsModel, ModelDetails, TagsArticle, TagsModel, YouTubeVideoDetails
+from .serializers import ArticleSerializer, ArticleTagsSerializer, BrandSerializer, CategorySerializer, ContactMessageSerializer, MobileSerializer, ModelDetailTagsSerializer, ModelDetailsSerializer, StaticsSerializer, TVSerializer, YouTubeVideoSerializer
 
 class BrandListCreateView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
@@ -287,4 +287,11 @@ class ModelsByTagView(generics.ListAPIView):
     def get_queryset(self):
         tag_id = self.kwargs['tag_id']  # Get the tag name from the URL parameter
         return ModelDetails.objects.filter(tags__id=tag_id)
+class ContactMessageListCreateView(generics.ListCreateAPIView):
+    queryset = Contactdetails.objects.all()
+    serializer_class = ContactMessageSerializer
+
+class ContactDetailPrimaryKeyOperationView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Contactdetails.objects.all()
+    serializer_class = ContactMessageSerializer
     

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TV, Article, Brand, Category, Mobile, ModelDetails, Statics, TagsArticle, TagsModel, YouTubeVideoDetails
+from .models import TV, Article, Brand, Category, Contactdetails, Mobile, ModelDetails, Statics, TagsArticle, TagsModel, YouTubeVideoDetails
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,4 +45,8 @@ class ArticleTagsSerializer(serializers.ModelSerializer):
 class StaticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Statics
+        fields = '__all__'
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contactdetails
         fields = '__all__'
