@@ -57,7 +57,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_HEADERS = [
     "x-password",
-    "X-Requested-With",  # Add any other custom headers you need to allow
+    "X-Requested-With",
+      "x-username",  # Add any other custom headers you need to allow
 ]
 CORS_ALLOW_CREDENTIALS = True
 
