@@ -173,7 +173,7 @@ class ModelDetailsSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.query_params.get('q', '')
-        queryset = ModelDetails.objects.filter(Q(model_name__icontains=query))
+        queryset = ModelDetails.objects.filter(Q(model_name__icontains=query) | Q(brandname__icontains=query))
         return queryset
 class ModelDetailsByCategoryView(generics.ListAPIView):
     serializer_class = ModelDetailsSerializer
