@@ -55,6 +55,10 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Replace with the actual origin of your frontend
 ]
+CORS_ALLOW_HEADERS = [
+    "x-password",
+    "X-Requested-With",  # Add any other custom headers you need to allow
+]
 CORS_ALLOW_CREDENTIALS = True
 
 
