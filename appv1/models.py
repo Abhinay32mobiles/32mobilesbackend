@@ -291,3 +291,98 @@ class Statics(models.Model):
     # product_brand_banner_cdn = ArrayField(models.CharField(max_length=200), blank=True, null=True, size=15)
     #price bands array
     producthori_button_text = ArrayField(models.PositiveIntegerField(), blank=True, null=True, size=5)
+
+class BaseGadget(models.Model):
+    manufacturer = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    serial_number = models.CharField(max_length=50, unique=True)
+    product_id = models.CharField(max_length=50)
+    color = models.CharField(max_length=50)
+    weight = models.DecimalField(max_digits=8, decimal_places=2)  # In kilograms
+    dimension = models.CharField(max_length=50)  # Store dimensions as a string (e.g., "10x5x2 cm")
+    material = models.CharField(max_length=50)
+    power_source = models.CharField(max_length=50)
+
+    class Meta:
+        abstract = True  # This makes the model abstract and cannot be created in the database.
+
+    def __str__(self):
+        return f"{self.manufacturer} {self.model}"
+class Laptop(BaseGadget):
+    # Additional fields specific to Laptops
+    # Basic Information
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, default=uuid.uuid4())
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=uuid.uuid4())
+    series = models.CharField(max_length=100, blank=True, null=True)
+    processor = models.CharField(max_length=100)
+    graphics = models.CharField(max_length=100)
+    memory = models.IntegerField()  # In GB
+    expandable_upto=models.IntegerField()  # In GB
+    storage = models.CharField(max_length=100)
+    display_size = models.DecimalField(max_digits=4, decimal_places=2)  # In inches
+    display_resolution = models.CharField(max_length=20)
+    display_type = models.CharField(max_length=50)
+    touchscreen = models.BooleanField(default=False)
+    keyboard_type = models.CharField(max_length=50)
+
+    # Connectivity and Ports
+    wifi = models.CharField(max_length=20)
+    bluetooth = models.CharField(max_length=20)
+    usb_ports = models.IntegerField()
+    hdmi_port = models.BooleanField(default=False)
+    audio_ports = models.CharField(max_length=50)
+    card_reader = models.BooleanField(default=False)
+    ethernet = models.BooleanField(default=False)
+
+    # Battery and Power
+    battery_capacity = models.DecimalField(max_length=20)
+    battery_life = models.DecimalField(max_length=20)
+    charging_type = models.CharField(max_length=50)
+
+    # Audio and Speakers
+    speakers = models.CharField(max_length=50)
+    audio_technology = models.CharField(max_length=50)
+
+    # Webcam and Microphone
+    webcam = models.CharField(max_length=50)
+    microphone = models.CharField(max_length=50)
+
+    # Security Features
+    fingerprint_sensor = models.BooleanField(default=False)
+    face_recognition = models.BooleanField(default=False)
+
+    # Graphics and Gaming
+    dedicated_graphics = models.BooleanField(default=False)
+    gaming_features = models.CharField(max_length=70)
+
+    # Additional Features
+    laptop_stand = models.BooleanField(default=False)
+    backlit_keyboard = models.BooleanField(default=False)
+    stylus_support = models.BooleanField(default=False)
+    convertible_design = models.BooleanField(default=False)
+    cooling_system = models.CharField(max_length=50)
+    build_material = models.CharField(max_length=50)
+    color_options = models.CharField(max_length=100)
+
+    # Software and Apps
+    pre_installed_software = models.TextField()
+    warranty = models.CharField(max_length=50)
+    price = models.CharField(max_length=50)
+
+    # Country of Origin
+    country_of_manufacture = models.CharField(max_length=50)
+
+    # Sustainability and Environmental
+    eco_friendly_features = models.TextField()
+    certifications = models.CharField(max_length=50)
+
+    # Accessories and Packaging
+    included_accessories = models.TextField()
+    packaging_contents = models.TextField()
+
+    # User Manual
+    user_manual = models.BooleanField(default=False)
+    quick_start_guide = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.brand} {self.model}"
